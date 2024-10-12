@@ -1,10 +1,11 @@
 import React from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import {BrowserRouter as Router, Routes, Route, Link, Navigate} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 import Login from "./components/login";
 import Signup from "./components/signup";
 import NotFound from "./components/notfound";
+import User from "./components/user";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                         </div>
                     </div>
                 }/>
+                <Route path="/user" element={<User/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
         </Router>

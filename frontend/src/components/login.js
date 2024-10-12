@@ -38,6 +38,7 @@ export default class Login extends Component {
         const data = await response.json();
         if (response.ok) {
             console.log(data);
+            localStorage.setItem('access_token', data.access_token);
             this.setState({ errorMessage: '' });
         } else if (response.status === 401) {
             this.setState({ errorMessage: data.detail });
