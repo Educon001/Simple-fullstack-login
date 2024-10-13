@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
-import {API_URL} from "../index";
 
 class User extends Component {
     constructor(props) {
@@ -19,7 +18,7 @@ class User extends Component {
         }
 
         try {
-            const response = await fetch(`${API_URL}/users/me`, {
+            const response = await fetch(`${window.env.REACT_APP_API_URL}/users/me`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`

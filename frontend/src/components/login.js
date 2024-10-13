@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../index";
 
 class Login extends Component {
     constructor(props) {
@@ -32,7 +31,7 @@ class Login extends Component {
         const formData = new FormData();
         formData.append('username', username);
         formData.append('password', password);
-        const response = await fetch(`${API_URL}/login`, {
+        const response = await fetch(`${window.env.REACT_APP_API_URL}/login`, {
             method: 'POST',
             body: formData
         });

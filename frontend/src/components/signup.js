@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Modal, Button} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {API_URL} from "../index";
 
 class Signup extends Component {
     constructor(props) {
@@ -48,7 +47,7 @@ class Signup extends Component {
             return;
         }
 
-        const response = await fetch(`${API_URL}/register`, {
+        const response = await fetch(`${window.env.REACT_APP_API_URL}/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

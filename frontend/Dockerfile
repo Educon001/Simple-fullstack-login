@@ -14,7 +14,8 @@ RUN apt-get update \
 
 # Install the Node.js dependencies
 RUN npm install \
-    && npm install -g serve
+    && npm install -g serve \
+    && npm install -g react-inject-env
 
 # Copy the application code to the working directory
 COPY . .
@@ -26,4 +27,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Serve the React application
-CMD ["serve", "-s", "build"]
+ENTRYPOINT npx react-inject-env set && serve -s build -l 3000
