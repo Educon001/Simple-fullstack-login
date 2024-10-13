@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { useNavigate } from "react-router-dom";
+import { API_URL } from "../index";
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +32,7 @@ export default class Login extends Component {
         const formData = new FormData();
         formData.append('username', username);
         formData.append('password', password);
-        const response = await fetch(`http://localhost:8000/login`, {
+        const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
             body: formData
         });
@@ -40,6 +42,7 @@ export default class Login extends Component {
             console.log(data);
             localStorage.setItem('access_token', data.access_token);
             this.setState({ errorMessage: '' });
+            this.props.navigate('/user');
         } else if (response.status === 401) {
             this.setState({ errorMessage: data.detail });
             console.log(data);
@@ -89,4 +92,9 @@ export default class Login extends Component {
             </form>
         );
     }
+}
+
+export default function LoginWithNavigate(props) {
+    const navigate = useNavigate();
+    return <Login {...props} navigate={navigate} />;
 }

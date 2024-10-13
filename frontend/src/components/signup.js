@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React, {Component} from "react";
+import {Modal, Button} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {API_URL} from "../index";
 
 class Signup extends Component {
     constructor(props) {
@@ -23,8 +24,8 @@ class Signup extends Component {
     }
 
     handleInputChange = (event) => {
-        const { name, value } = event.target;
-        this.setState({ [name]: value, [`${name}Error`]: false });
+        const {name, value} = event.target;
+        this.setState({[name]: value, [`${name}Error`]: false});
     }
 
     handleSubmit = async (event) => {
@@ -33,7 +34,7 @@ class Signup extends Component {
             alert('Passwords do not match');
             return;
         }
-        const { full_name, username, email, password } = this.state;
+        const {full_name, username, email, password} = this.state;
 
         this.setState({
             full_nameError: full_name === '',
@@ -47,20 +48,20 @@ class Signup extends Component {
             return;
         }
 
-        const response = await fetch(`http://localhost:8000/register`, {
+        const response = await fetch(`${API_URL}/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ full_name, username, email, password })
+            body: JSON.stringify({full_name, username, email, password})
         });
 
         const data = await response.json();
         if (response.ok) {
             console.log(data);
-            this.setState({ showModal: true, errorMessage: '' });
+            this.setState({showModal: true, errorMessage: ''});
         } else if (response.status === 409) {
-            this.setState({ errorMessage: data.detail });
+            this.setState({errorMessage: data.detail});
             console.log(data);
         } else {
             console.error(data);
@@ -68,7 +69,7 @@ class Signup extends Component {
     }
 
     handleCloseModal = () => {
-        this.setState({ showModal: false });
+        this.setState({showModal: false});
         this.props.navigate('/login');
     }
 
@@ -120,6 +121,8 @@ class Signup extends Component {
                             name="password"
                             value={this.state.password}
                             onChange={this.handleInputChange}
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" // Example pattern: at least one number, one lowercase and one uppercase letter, and at least 8 characters
+                            title="Must contain at least one number, one lowercase and one uppercase letter, and at least 8 or more characters"
                         />
                     </div>
                     <div className="mb-3">
@@ -135,7 +138,7 @@ class Signup extends Component {
                     </div>
                     {this.state.errorMessage && (
                         <div className="mb-3">
-                            <span style={{ color: 'red' }}>{this.state.errorMessage}</span>
+                            <span style={{color: 'red'}}>{this.state.errorMessage}</span>
                         </div>
                     )}
                     <div className="d-grid">
@@ -163,5 +166,5 @@ class Signup extends Component {
 
 export default function SignupWithNavigate(props) {
     const navigate = useNavigate();
-    return <Signup {...props} navigate={navigate} />;
+    return <Signup {...props} navigate={navigate}/>;
 }
