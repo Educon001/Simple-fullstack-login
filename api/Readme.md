@@ -19,13 +19,13 @@ This directory contains the API service for the project. The API is built using 
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
     ```
 
-3. **Install dependencies:**
+2**Install dependencies:**
 
     ```sh
     pip install -r requirements.txt
     ```
 
-4. **Set up environment variables:**
+3**Set up environment variables:**
 
    Copy the `example.env` file to `.env` in the `api` directory and replace the placeholder values with your own:
 
@@ -34,7 +34,7 @@ This directory contains the API service for the project. The API is built using 
    # Use openssl rand -hex 32 to generate a secret key
     ```
 
-5. **Run the application:**
+4**Run the application:**
 
     ```sh
     uvicorn main:app --reload
